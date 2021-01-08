@@ -1,57 +1,69 @@
 @extends('dashboard.layout')
 @section('content')
-<h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <a href="{{route('roles.create')}}" type="button" class="btn btn-sm btn-outline-secondary">Add New</a>
-           
-          </div>
-          
+    <h1 class="h2">Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <a href="{{route('categories.create')}}" type="button" class="btn btn-sm btn-outline-secondary">Add New Category</a>
+
         </div>
-@if(!$roles->isEmpty())
+
+    </div>
+    @if(!$posts->isEmpty())
 
 
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Created_at</th>
-              <th>Updated_at</th>
-              <th>Users	</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          @foreach ($roles as $role)
-          <tr>
-          	<td>{{$role->id}}</td>
-          	<td>{{$role->name}}</td>
-          	<td>{{$role->created_at}}</td>
-          	<td>{{$role->updated_at}}</td>
-          	<td></td>
-          	<td>
-          		<div class="btn-group" role="group" aria-label="Basic example">
-				  <a href="{{route('roles.show',$role->id)}}" type="button" class="btn btn-link">Show</a>
-				  <form method="post" action="{{route('roles.destroy',$role->id)}}">
-				  	@method('DELETE')
-				  	@csrf
-				    <button type="submit" class="btn btn-link">Delete</button>
-				  </form>
-				  <a href="{{route('roles.edit',$role->id)}}" type="button" class="btn btn-link">Edit</a>
-				</div>
-          		
-          	</td>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>thumbnail</th>
+                    <th>content</th>
+                    <th>Users	</th>
+                    <th>Created_at</th>
+                    <th>Updated_at</th>
 
-          	
-          </tr>
-          @endforeach
-          <tbody>
-           
-          </tbody>
-        </table>
-      </div>
-  @else 
-  <p class="alert alert-info">No Roles Record Found</p>    
-  @endif
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                @foreach ($posts as $post)
+                    <tr>
+                        <td>{{$post->id}}</td>
+                        <td>{{$post->title}}</td>
+
+                        <td> <img src="{{asset('images/blog/'.$post->thumbnail)}}" width="100" height="100" > </td>
+                        <td>{{$post->content}}</td>
+                        <td>{{$post->user->name}}</td>
+                        <td>{{$post->created_at}}</td>
+                        <td>{{$post->updated_at}}</td>
+
+
+
+                        <td>
+                            @can('isadmin')
+                            <div class="btn-group" category="group" aria-label="Basic example">
+                                <a href="{{route('categories.show',$post->id)}}" type="button" class="btn btn-link">Show</a>
+                                <form method="post" action="{{route('categories.destroy',$post->id)}}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-link">Delete</button>
+                                </form>
+                                <a href="{{route('categories.edit',$post->id)}}" type="button" class="btn btn-link">Edit</a>
+                            </div>
+                                @endcan
+
+                        </td>
+
+
+                    </tr>
+                @endforeach
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    @else
+        <p class="alert alert-info">No categories Record Found</p>
+    @endif
 @endsection

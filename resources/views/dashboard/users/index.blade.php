@@ -27,6 +27,13 @@
           <tr>
           	<td>{{$user->id}}</td>
           	<td>{{$user->name}}</td>
+              <td>
+                  @foreach ($user->roles as $role)
+                             {{$role->name}}
+                  @endforeach</td>
+
+
+
           	<td>{{$user->created_at}}</td>
           	<td>{{$user->updated_at}}</td>
           	<td></td>

@@ -41,13 +41,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getPost(){
-    	return $this->hasMany(Post::class, 'user_id', 'id');
+
+
+
+//    public function getAdress(){
+//    	return $this->hasOne(Adress::class, 'user_id', 'id');
+//    }
+//   public function getUserRole(){
+//      return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+//  }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
-    public function getAdress(){
-    	return $this->hasOne(Adress::class, 'user_id', 'id');
-    }
-    public function getUserRole(){
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
-    }
+
 }

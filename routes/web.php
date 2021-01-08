@@ -28,8 +28,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //resource controller
-Route::prefix('admin')->group(function () {
-	Route::view('/','dashboard.admin');
+Route::prefix('admin')->middleware(['auth','password.confirm'])->group(function () {
+
+
+    Route::view('/','dashboard.admin');
+
 Route::resource('posts', PostController::class);
 Route::resource('profiles', ProfileController::class);
 Route::resource('pages', PageController::class);
@@ -38,6 +41,22 @@ Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 
 });
+
+
+
+//Route::prefix('admin')->middleware(['auth','can:isadmin'])->group(function () {
+//
+//
+//    Route::view('/','dashboard.admin');
+//
+//    Route::resource('posts', PostController::class);
+//    Route::resource('profiles', ProfileController::class);
+//    Route::resource('pages', PageController::class);
+//    Route::resource('categories', CategoryController::class);
+//    Route::resource('roles', RoleController::class);
+//    Route::resource('users', UserController::class);
+//
+//});
 
 
 

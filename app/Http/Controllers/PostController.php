@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -14,8 +16,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('getUserPost')->where('user_id', '=', '1')->get();
-        dd($posts);
+        $posts = Post::all();
+
+
+//        $posts = Post::with('getUserPost')->where('user_id', '=', '1')->get();
+        return view('dashboard.posts.index', compact('posts'));
     }
 
     /**
@@ -25,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.posts.create');
     }
 
     /**
@@ -36,7 +41,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->user_id = $request->user_id;
+        $filename = sprintf('thumbnail_%s.jpg',random_int(1, 1000));
+
+
+        if ($request->hasFile('thumbnail'))
+            $file = $request->file('thumbnail');
+        $fileName = $request->file('thumbnail')->getClientOriginalName();
+        $destinationPath = 'images/blog';
+        $file->move($destinationPath,$file->getClientOriginalName());
+        $post->thumbnail= $fileName;
+        $save = $post->save();
+
+        if ($save) {
+            return redirect()->route('posts.index');
+            # code...
+        }
     }
 
     /**

@@ -14,7 +14,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        dd(1);
     }
 
     /**
@@ -46,7 +46,7 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        //
+        dd(1);
     }
 
     /**

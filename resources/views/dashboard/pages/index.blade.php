@@ -3,12 +3,12 @@
 <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-            <a href="{{route('roles.create')}}" type="button" class="btn btn-sm btn-outline-secondary">Add New</a>
+            <a href="{{route('posts.create')}}" type="button" class="btn btn-sm btn-outline-secondary">Add New</a>
            
           </div>
           
         </div>
-@if(!$roles->isEmpty())
+@if(!$posts->isEmpty())
 
 
       <div class="table-responsive">
@@ -23,22 +23,22 @@
               <th>Action</th>
             </tr>
           </thead>
-          @foreach ($roles as $role)
+          @foreach ($posts as $post)
           <tr>
-          	<td>{{$role->id}}</td>
-          	<td>{{$role->name}}</td>
-          	<td>{{$role->created_at}}</td>
-          	<td>{{$role->updated_at}}</td>
+          	<td>{{$post->id}}</td>
+          	<td>{{$post->title}}</td>
+          	<td>{{$post->created_at}}</td>
+          	<td>{{$post->updated_at}}</td>
           	<td></td>
           	<td>
           		<div class="btn-group" role="group" aria-label="Basic example">
-				  <a href="{{route('roles.show',$role->id)}}" type="button" class="btn btn-link">Show</a>
-				  <form method="post" action="{{route('roles.destroy',$role->id)}}">
+				  <a href="{{route('roles.show',$post->id)}}" type="button" class="btn btn-link">Show</a>
+				  <form method="post" action="{{route('posts.destroy',$post->id)}}">
 				  	@method('DELETE')
 				  	@csrf
 				    <button type="submit" class="btn btn-link">Delete</button>
 				  </form>
-				  <a href="{{route('roles.edit',$role->id)}}" type="button" class="btn btn-link">Edit</a>
+				  <a href="{{route('roles.edit',$post->id)}}" type="button" class="btn btn-link">Edit</a>
 				</div>
           		
           	</td>
