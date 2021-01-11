@@ -3,7 +3,7 @@
     <h1 class="h2">Dashboard</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <a href="{{route('categories.create')}}" type="button" class="btn btn-sm btn-outline-secondary">Add New Category</a>
+            <a href="{{route('posts.create')}}" type="button" class="btn btn-sm btn-outline-secondary">Add New Post</a>
 
         </div>
 
@@ -19,7 +19,7 @@
                     <th>Title</th>
                     <th>thumbnail</th>
                     <th>content</th>
-                    <th>Users	</th>
+                    <th>Users</th>
                     <th>Created_at</th>
                     <th>Updated_at</th>
 
@@ -37,23 +37,41 @@
                         <td>{{$post->user->name}}</td>
                         <td>{{$post->created_at}}</td>
                         <td>{{$post->updated_at}}</td>
-
-
-
                         <td>
-                            @can('isadmin')
-                            <div class="btn-group" category="group" aria-label="Basic example">
-                                <a href="{{route('categories.show',$post->id)}}" type="button" class="btn btn-link">Show</a>
-                                <form method="post" action="{{route('categories.destroy',$post->id)}}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-link">Delete</button>
-                                </form>
-                                <a href="{{route('categories.edit',$post->id)}}" type="button" class="btn btn-link">Edit</a>
-                            </div>
-                                @endcan
+
+
+                                <div class="btn-group" category="group" aria-label="Basic example">
+                                    <a href="{{route('posts.show',$post->id)}}" type="button" class="btn btn-link">Show</a>
+                                    @can("isAllow", $post->user->id)
+                                    <form method="post" action="{{route('posts.destroy',$post->id)}}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-link">Delete</button>
+                                    </form>
+                                    <a href="{{route('posts.edit',$post->id)}}" type="button" class="btn btn-link">Edit</a>
+                                    @endcan
+                                </div>
+
 
                         </td>
+
+
+
+                        {{--<td>--}}
+                            {{--@can("isAllow", collect(['admin','subscriber']))--}}
+
+                            {{--<div class="btn-group" category="group" aria-label="Basic example">--}}
+                                {{--<a href="{{route('categories.show',$post->id)}}" type="button" class="btn btn-link">Show</a>--}}
+                                {{--<form method="post" action="{{route('categories.destroy',$post->id)}}">--}}
+                                    {{--@method('DELETE')--}}
+                                    {{--@csrf--}}
+                                    {{--<button type="submit" class="btn btn-link">Delete</button>--}}
+                                {{--</form>--}}
+                                {{--<a href="{{route('categories.edit',$post->id)}}" type="button" class="btn btn-link">Edit</a>--}}
+                            {{--</div>--}}
+                                {{--@endcan--}}
+
+                        {{--</td>--}}
 
 
                     </tr>

@@ -1,20 +1,34 @@
 @extends('dashboard.layout')
 @section('content')
-<form method="Post" action="{{route('roles.update',$role->id)}}">
-	@method('PUT')
-	@csrf
- <div class="row">	
- 	<div class="col-md-8">
-     <div class="form-group">
-      <label for="inputRoleName">Edit Role</label>
-       <input type="text" class="form-control" name="name" id="inputRoleName" placeholder="Enter Role" value="{{$role->name}}">
-      <!--  <input type="hidden" name="_method" value="PUT"> -->
-     <!--  <input type="hidden" value="{{$role->id}}" name="id"> -->
-     </div>
-    </div>
-   </div> 
-      <button type="submit" class="btn btn-primary">Update</button>
-</form>
+
+    <form method="post" action="{{route('posts.update',$post->id)}}" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="form-group">
+                    <label for="inputRoleName">Add New Title</label>
+                    <input type="text" class="form-control" name="title" id="inputRoleName" value="{{$post->title}}" placeholder="Enter title">
+                </div>
+                <div class="form-group">
+                    <label for="inputRoleName">Add New Content</label>
+                    <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3">{{$post->content}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputRoleName">Add New thumbnail</label>
+                    <input type="file" class="form-control" name="thumbnail" id="inputRoleName" placeholder="chose file">
+                </div>
+
+
+
+                <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
+
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
 
 
 

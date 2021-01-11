@@ -12,4 +12,10 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function getNameAttribute($role){
+        return strtolower($role);
+    }
+    public function setNameAttribute($role){
+        $this->attribute['name'] = strtolower($role);
+    }
 }

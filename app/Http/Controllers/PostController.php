@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 
 use App\Models\Post;
+use Gate;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -82,9 +83,26 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+
+
+        $post = Post::find($id);
+//        if (! Gate::allows('edit-settings', $post)) {
+//            abort(403);
+//        }
+//         $response = Gate::inspect('edit-settings');
+//
+//        if ($response->allowed()) {
+            return view('dashboard.posts.edit', compact('post'));
+//        } else {
+//            echo $response->message();
+//        }
+
+
+
+
+
     }
 
     /**
@@ -96,7 +114,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+
+
     }
 
     /**

@@ -27,18 +27,46 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-//resource controller
-Route::prefix('admin')->middleware(['auth','password.confirm'])->group(function () {
+////resource controller
+//Route::prefix('admin')->middleware(['auth','password.confirm'])->group(function () {
+//
+//
+//    Route::view('/','dashboard.admin');
+//
+//Route::resource('posts', PostController::class);
+//Route::resource('profiles', ProfileController::class);
+//Route::resource('pages', PageController::class);
+//Route::resource('categories', CategoryController::class);
+//Route::resource('roles', RoleController::class);
+//Route::resource('users', UserController::class);
+//
+//});
+
+//Route::prefix('admin')->middleware(['auth','can:isAllow,"admin:subscriber"'])->group(function () {
+//
+//
+//    Route::view('/','dashboard.admin');
+//
+//    Route::resource('posts', PostController::class);
+//    Route::resource('profiles', ProfileController::class);
+//    Route::resource('pages', PageController::class);
+//    Route::resource('categories', CategoryController::class);
+//    Route::resource('roles', RoleController::class);
+//    Route::resource('users', UserController::class);
+//
+//});
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
 
 
     Route::view('/','dashboard.admin');
 
-Route::resource('posts', PostController::class);
-Route::resource('profiles', ProfileController::class);
-Route::resource('pages', PageController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
+    Route::resource('posts', PostController::class);
+    Route::resource('profiles', ProfileController::class);
+    Route::resource('pages', PageController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 
 });
 
